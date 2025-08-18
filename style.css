@@ -1,0 +1,187 @@
+/* ===================
+   Base Styles
+=================== */
+body {
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  background: #181818;   /* Dark mode default */
+  color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* ===================
+   Container
+=================== */
+.container {
+  background: #222;
+  padding: 25px;
+  margin-top: 40px;
+  border-radius: 15px;
+  box-shadow: 0px 8px 18px rgba(0, 0, 0, 0.15);
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  transition: background 0.3s, color 0.3s;
+}
+
+.container h1 {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+/* ===================
+   Student List (Scrollable)
+=================== */
+.student-list-container {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 15px;
+  border: 1px solid #444;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+/* Student cards */
+.student {
+  display: flex;
+  align-items: center;
+  background: #333;
+  padding: 12px 15px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.student:hover {
+  background: #444;
+}
+
+.student input {
+  margin-right: 10px;
+  transform: scale(1.2);
+}
+
+/* ===================
+   Buttons
+=================== */
+button {
+  background: #666;
+  color: white;
+  font-size: 16px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.3s ease;
+}
+
+button:hover {
+  background: #888;
+}
+
+/* ===================
+   Attendance Output
+=================== */
+#present-list {
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.output-box {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#attendanceOutput {
+  width: 90%;
+  height: 250px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #555;
+  font-family: monospace;
+  font-size: 14px;
+  display: none;
+  resize: none;
+  background: #1e1e1e;
+  color: #fff;
+}
+
+/* ===================
+   ChatGPT-like Scrollbar
+=================== */
+.student-list-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.student-list-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.student-list-container::-webkit-scrollbar-thumb {
+  background: rgba(128, 128, 128, 0.4);
+  border-radius: 4px;
+}
+
+.student-list-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(128, 128, 128, 0.7);
+}
+
+/* Firefox support */
+.student-list-container {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(128,128,128,0.5) transparent;
+}
+
+/* ===================
+   Light Mode
+=================== */
+body.light {
+  background: #f0f4f9;
+  color: #222;
+}
+
+body.light .container {
+  background: #fff;
+  color: #222;
+}
+
+body.light .student {
+  background: #f8faff;
+}
+
+body.light .student:hover {
+  background: #eaf2ff;
+}
+
+body.light #attendanceOutput {
+  background: #fff;
+  color: #222;
+  border: 1px solid #ccc;
+}
+
+body.light button {
+  background: #4a90e2;
+}
+
+body.light button:hover {
+  background: #357ab8;
+}
+
+/* Light mode scrollbar */
+body.light .student-list-container::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+body.light .student-list-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
