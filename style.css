@@ -1,187 +1,225 @@
 /* ===================
-   Base Styles
+   Theme variables
 =================== */
+:root{
+  --bg: #181818;
+  --fg: #f5f5f5;
+  --card: #222;
+  --card-2: #2b2b2b;
+  --muted: #aaa;
+  --border: #333;
+  --accent: #4a90e2;
+  --gap: 12px;
+  --container-gap: 20px;
+}
+
+/* Body & container */
+* { box-sizing: border-box; }
 body {
-  font-family: "Segoe UI", Tahoma, sans-serif;
-  background: #181818;   /* Dark mode default */
-  color: #f5f5f5;
   margin: 0;
   padding: 0;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  min-height: 100vh;
-  transition: background 0.3s, color 0.3s;
+  min-height: 100dvh;
 }
 
-/* ===================
-   Container
-=================== */
 .container {
-  background: #222;
-  padding: 25px;
-  margin-top: 40px;
-  border-radius: 15px;
-  box-shadow: 0px 8px 18px rgba(0, 0, 0, 0.15);
-  width: 90%;
-  max-width: 500px;
+  width: 100%;
+  max-width: 640px;
+  margin: 18px;            /* even margin from all sides */
+  padding: 18px;           /* inner spacing */
+  background: var(--card);
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  display: flex;
+  flex-direction: column;
+  gap: var(--container-gap);
+}
+
+/* Title */
+.title {
+  margin: 0;
+  font-size: 22px;
   text-align: center;
-  transition: background 0.3s, color 0.3s;
 }
 
-.container h1 {
-  margin-bottom: 20px;
-  font-size: 24px;
-}
-
-/* ===================
-   Student List (Scrollable)
-=================== */
-.student-list-container {
-  max-height: 300px;
-  overflow-y: auto;
-  margin-bottom: 15px;
-  border: 1px solid #444;
+/* Header: search + counter */
+.header-bar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  /* prevent header wrapping - counter will never drop line */
+  flex-wrap: nowrap;
+  background: transparent;
+  padding: 8px;
   border-radius: 10px;
-  padding: 10px;
+  border: 1px solid var(--border);
 }
 
-/* Student cards */
+/* Search input: allow shrinking on small screens */
+#searchBox {
+  flex: 1 1 auto;
+  min-width: 0;                    /* VERY important so input can shrink */
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--card-2);
+  color: var(--fg);
+  outline: none;
+  font-size: 15px;
+  /* if search text is too long, show ellipsis */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Live counter: never wrap and keep natural width */
+#liveCounter {
+  flex: 0 0 auto;   /* do not grow/shrink */
+  white-space: nowrap;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--fg);
+}
+
+/* Student list container */
+.student-list-container {
+  max-height: calc(100dvh - 380px);
+  overflow-y: auto;
+  border-radius: 12px;
+  padding: 10px;
+  border: 1px solid var(--border);
+}
+
+/* Student item */
 .student {
   display: flex;
   align-items: center;
-  background: #333;
-  padding: 12px 15px;
-  margin-bottom: 8px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.student:hover {
-  background: #444;
-}
-
-.student input {
-  margin-right: 10px;
-  transform: scale(1.2);
-}
-
-/* ===================
-   Buttons
-=================== */
-button {
-  background: #666;
-  color: white;
-  font-size: 16px;
-  padding: 12px 20px;
-  border: none;
+  gap: 12px;
+  background: var(--card-2);
+  padding: 10px;
+  margin: 8px 0;
   border-radius: 10px;
   cursor: pointer;
-  margin-top: 10px;
-  transition: 0.3s ease;
+  transition: transform .14s ease, background .18s ease;
+  transform-origin: center;
 }
+.student:hover { transform: translateY(-2px); }
+.student input { transform: scale(1.15); }
 
-button:hover {
-  background: #888;
-}
+/* default absent tone (subtle) */
+.student.absent { background: rgba(255, 0, 0, 0.04); }
+.student.present { background: rgba(16, 185, 129, 0.12); }
 
-/* ===================
-   Attendance Output
-=================== */
-#present-list {
-  margin-top: 20px;
-  font-weight: bold;
-  font-size: 18px;
-}
-
-.output-box {
-  margin-top: 15px;
+/* Buttons */
+.button-group {
   display: flex;
-  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
 }
 
-#attendanceOutput {
-  width: 90%;
-  height: 250px;
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #555;
-  font-family: monospace;
-  font-size: 14px;
-  display: none;
-  resize: none;
-  background: #1e1e1e;
+button {
+  background: #666;
   color: #fff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: transform .12s ease, background .18s ease;
+}
+button:hover { transform: translateY(-2px); background: #7a7a7a; }
+
+/* Output textarea */
+.output-box { display: flex; flex-direction: column; align-items: stretch; }
+#attendanceOutput {
+  display: none;
+  width: 100%;
+  height: 220px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #1e1e1e;
+  color: var(--fg);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 13px;
+  resize: none;
 }
 
-/* ===================
-   ChatGPT-like Scrollbar
-=================== */
-.student-list-container::-webkit-scrollbar {
-  width: 8px;
+/* Footer */
+.site-footer {
+  margin-top: 10px;
+  padding-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 14px;
 }
+.site-footer .made-by { display:flex; align-items:center; gap:8px; }
+.site-footer .social-icons { display:flex; gap:10px; align-items:center; }
 
-.student-list-container::-webkit-scrollbar-track {
-  background: transparent;
-}
+/* icons use currentColor */
+.site-footer a { color: var(--muted); display:inline-flex; align-items:center; }
+.site-footer a:hover { color: var(--fg); transform: translateY(-2px); }
 
-.student-list-container::-webkit-scrollbar-thumb {
-  background: rgba(128, 128, 128, 0.4);
-  border-radius: 4px;
-}
-
-.student-list-container::-webkit-scrollbar-thumb:hover {
-  background: rgba(128, 128, 128, 0.7);
-}
-
-/* Firefox support */
-.student-list-container {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(128,128,128,0.5) transparent;
-}
-
-/* ===================
-   Light Mode
-=================== */
+/* Light mode overrides */
 body.light {
-  background: #f0f4f9;
-  color: #222;
+  --bg: #f5f8fb;
+  --fg: #111;
+  --card: #ffffff;
+  --card-2: #f6f9ff;
+  --border: #e6eef8;
+  --muted: #5b6b7a;
+  background: var(--bg);
+  color: var(--fg);
 }
 
-body.light .container {
-  background: #fff;
-  color: #222;
-}
+/* Scrollbar small/pretty */
+.student-list-container::-webkit-scrollbar { width: 8px; height: 8px; }
+.student-list-container::-webkit-scrollbar-thumb { background: rgba(128,128,128,0.35); border-radius: 6px; }
+.student-list-container { scrollbar-width: thin; scrollbar-color: rgba(128,128,128,0.35) transparent; }
 
-body.light .student {
-  background: #f8faff;
-}
+/* ===================
+   Mobile tweaks (<=464px)
+=================== */
+@media (max-width: 464px) {
+  .container { margin: 12px; padding: 14px; }
+  .title { font-size: 20px; }
 
-body.light .student:hover {
-  background: #eaf2ff;
-}
+  /* header remains single-line:
+     search shrinks (min-width:0), counter stays visible */
+  .header-bar {
+    gap: 8px;
+    padding: 8px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  #searchBox {
+    margin-bottom: 8px;
+  }
+  #liveCounter {
+    margin-bottom: 0;
+    margin-top: 0;
+    align-self: flex-start;
+    font-size: 15px;
+  }
 
-body.light #attendanceOutput {
-  background: #fff;
-  color: #222;
-  border: 1px solid #ccc;
-}
+  #searchBox { font-size: 14px; padding: 8px 10px; }
+  #liveCounter { font-size: 14px; }
 
-body.light button {
-  background: #4a90e2;
-}
+  /* stack buttons vertically but keep equal margins */
+  .button-group { flex-direction: column; gap: 10px; }
+  button { width: 100%; }
 
-body.light button:hover {
-  background: #357ab8;
-}
-
-/* Light mode scrollbar */
-body.light .student-list-container::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.3);
-}
-
-body.light .student-list-container::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.5);
+  #attendanceOutput { height: 160px; font-size: 13px; }
+  .site-footer { flex-direction: column; align-items: center; text-align: center; gap: 8px; }
 }
