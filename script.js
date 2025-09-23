@@ -56,7 +56,7 @@ const embeddedStudents = [
   { "roll": 42, "name": "Keshav Vyas" },
   { "roll": 43, "name": "Koshal Agarwal" },
   { "roll": 44, "name": "Krishna Jangid" },
-  { "roll": 45, "name": "Kritika Bhadauriya" },
+  { "roll": 45, "name": "Kritika Bhadauria" },
   { "roll": 46, "name": "Kumbha Ram Kumawat" },
   { "roll": 47, "name": "Mahendra Singh Bhati" },
   { "roll": 48, "name": "Manas Harsh" },
@@ -232,3 +232,4 @@ function restoreCheckedFromStorage() {
 
 // ===== Start =====
 loadStudents();
+
